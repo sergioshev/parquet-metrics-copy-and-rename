@@ -23,7 +23,7 @@ gcloud pubsub subscriptions create etl-cs-notification-prod-sub --topic etl-cs-n
 - Grant publisher permission to service account from the previous step
 Check members array is containing service account from step above (`Get the service account email`)
 ```
-cat <<FFAA | gcloud pubsub topics set-iam-policy projects/perceptive-zoo-351213/topics/etl-cs-notification-prod /dev/stdin
+cat <<FFAA | gcloud pubsub topics set-iam-policy projects/<PROJECT_ID>/topics/etl-cs-notification-prod /dev/stdin
 {
   "bindings": [
     {
