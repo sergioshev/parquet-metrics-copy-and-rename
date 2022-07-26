@@ -4,15 +4,15 @@ All following steps assume you are logged in gcloud, and gcloud/gsutil is correc
 - Login to google cloud and setup default project id
 ```
 gcloud auth login
-gcloud config set project perceptive-zoo-351213
+gcloud config set project <PROJECT_ID>
 ```
 
 - Get the service account email
 This step is necessary to setup pubsub publisher role
 ```
-gsutil kms serviceaccount -p perceptive-zoo-351213
+gsutil kms serviceaccount -p <PROJECT_ID>
 ```
-it should output something like `service-444321464088@gs-project-accounts.iam.gserviceaccount.com`
+it should output something like `service-xxxxxxx@.......iam.gserviceaccount.com`
 
 - Create pubsub topic/subs for GCS event notifications with retention period 
 ```
@@ -28,7 +28,7 @@ cat <<FFAA | gcloud pubsub topics set-iam-policy projects/perceptive-zoo-351213/
   "bindings": [
     {
       "members": [
-        "serviceAccount:service-444321464088@gs-project-accounts.iam.gserviceaccount.com"
+        "serviceAccount:service-xxxxxxx@.......iam.gserviceaccount.com"
       ],
       "role": "roles/pubsub.publisher"
     }
@@ -41,11 +41,11 @@ FFAA
 - List and create notification configuration associated to a GCS bucked
   - create
 ```
-gsutil notification create -t etl-cs-notification-prod -f json gs://af-xpend-cost-etl-acc-imjbu2hf-prod
+gsutil notification create -t etl-cs-notification-prod -f json gs://<BUCKET_NAME_OBSERVED>
 ```
   - verify it was created
 ```
-gsutil notification list gs://af-xpend-cost-etl-acc-imjbu2hf-prod
+gsutil notification list gs://<BUCKET_NAME_OBSERVED>
 ```
 # Finally deploy the cloud function
 ```
