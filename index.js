@@ -1,17 +1,5 @@
 const { Storage } = require('@google-cloud/storage')
 
- /*
-  Eg.
-    gs://
-      af-xpend-cost-etl-acc-imjbu2hf-prod-backup/
-        cost_etl/
-          v1/
-            dt=2022-06-22/
-              b=4/
-                channel/
-                  part-00000-a00a254c-ad54-4ca0-9a65-376d897c5b62-c000.gz.parquet
-    testVar = 'cost_etl/v1/dt=2022-06-22/b=4/channel/part-00000-a00a254c-ad54-4ca0-9a65-376d897c5b62-c000.gz.parquet'
-  */
 exports.generateDestinationURI = (fileNamePath) => {
   const re = new RegExp('(.*cost_etl/v1)/dt=([^/]+)/b=4/([^/]+)/(.*\.gz\.parquet)')
   if (re.test(fileNamePath)) {
