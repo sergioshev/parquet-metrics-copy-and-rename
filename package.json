@@ -1,0 +1,16 @@
+{
+  "name": "parquet-metrics-copy-and-rename",
+  "version": "1.0.0",
+  "description": "cloud storage metrics helper function",
+  "main": "index.js",
+  "scripts": {
+    "deploy-testing": "gcloud functions deploy metricsCopyAndRenameGCS --runtime nodejs16 --set-env-vars DST_BUCKET=ss-test-destination --trigger-resource ss-test-origin --trigger-event google.storage.object.finalize",
+    "deploy-prod": "gcloud functions deploy metricsCopyAndRenameGCSProd --runtime nodejs16 --set-env-vars DST_BUCKET=af-xpend-cost-etl-acc-imjbu2hf-prod-restructured --trigger-resource  af-xpend-cost-etl-acc-imjbu2hf-prod --trigger-event google.storage.object.finalize",
+    "test": "ENV=test node test.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@google-cloud/storage": "^6.2.3"
+  }
+}
